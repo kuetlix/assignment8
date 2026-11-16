@@ -17,11 +17,25 @@ const PUBLIC_DIR = path.join(__dirname, 'public');
 // ----------------------------------------------------------------------------
 const OWNER_NAME = 'Kübra ETLİ';
 
+const ROBOTS_TXT = [
+  'User-agent: *',
+  'Disallow: /api/admin',
+  'Allow: /',
+].join('\n');
+
 // ----------------------------------------------------------------------------
 // Text routes
 // ----------------------------------------------------------------------------
 app.get('/hello', (req, res) => {
   res.type('text/plain').send(`Hello from ${OWNER_NAME}'s server`);
+});
+
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain').send(ROBOTS_TXT);
+});
+
+app.get('/old-page', (req, res) => {
+  res.redirect(301, '/hello');
 });
 
 // ----------------------------------------------------------------------------
