@@ -76,6 +76,20 @@ app.get('/api/admin', (req, res) => {
 });
 
 // ----------------------------------------------------------------------------
+// 404 fallback:registered LAST so it never hides a real route.
+// app.use without a path matches every method and every path (Express 5 safe).
+// ----------------------------------------------------------------------------
+app.use((req, res) => {
+  const isApiPath = req.path === '/api' || req.path.startsWith('/api/');
+
+  if (isApiPath) {
+    res.status(404).json({ error: 'Not found' });
+  } else {
+    res.status(404).type('text/plain').send(`Page not found: ${req.path}`);
+  }
+});
+
+// ----------------------------------------------------------------------------
 // Start
 // ----------------------------------------------------------------------------
 app.listen(PORT, () => {
