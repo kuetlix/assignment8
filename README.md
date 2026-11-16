@@ -52,6 +52,9 @@ Order in `server.js`: setup → data → logger → counter → `express.static`
 | other `/api/...` | 404 | `{ "error": "Not found" }` |
 | other paths | 404 | text: `Page not found: <path>` |
 
+I chose `301 Moved Permanently` for `/old-page` on purpose: the old page has moved for good.
+(`302` would be the choice for a temporary move; browsers cache `301`.)
+
 ## 3. Middleware
 
 - **Logger** prints `[timestamp] METHOD URL` for each request, then calls `next()`.
