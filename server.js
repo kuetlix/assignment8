@@ -43,6 +43,10 @@ function requestCounter(req, res, next) {
 app.use(requestLogger);
 app.use(requestCounter);
 
+
+// Static files: GET / serves public/index.html, plus styles.css and app.js
+app.use(express.static(PUBLIC_DIR));
+
 app.get('/old-page', (req, res) => {
   res.redirect(301, '/hello');
 });

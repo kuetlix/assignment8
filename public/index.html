@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computer Engineering Programme</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Computer Engineering Programme</h1>
+    </header>
+
+    <main>
+      <section>
+        <h2>About the programme</h2>
+        <p>
+          This is a small information server for a made-up four-year study
+          programme in computer engineering. Students learn programming,
+          algorithms, databases, operating systems and web development.
+        </p>
+        <p>
+          Use the buttons below to call every API route of this server. The
+          status code and the body of each response appear in the box under
+          the buttons.
+        </p>
+      </section>
+
+      <section>
+        <h2>Try the API</h2>
+        <div class="buttons">
+          <button data-method="GET" data-path="/api/courses">GET /api/courses</button>
+          <button data-method="GET" data-path="/api/status">GET /api/status</button>
+          <button data-method="GET" data-path="/api/headers">GET /api/headers</button>
+          <button data-method="POST" data-path="/api/subscribe">POST /api/subscribe</button>
+          <button data-method="GET" data-path="/api/admin">GET /api/admin</button>
+          <button data-method="GET" data-path="/api/stats">GET /api/stats</button>
+          <button data-method="GET" data-path="/api/does-not-exist">GET /api/does-not-exist</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Response</h2>
+        <pre id="output">Click a button to see the response.</pre>
+      </section>
+    </main>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
