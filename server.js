@@ -24,6 +24,31 @@ const ROBOTS_TXT = [
 ].join('\n');
 
 // ----------------------------------------------------------------------------
+// Middleware (registered BEFORE every route)
+// ----------------------------------------------------------------------------
+
+// 1) Request logger: one line per request, then pass control on.
+function requestLogger(req, res, next) {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
+  next();
+}
+
+// 2) Request counter: counts every request that reaches the server.
+function requestCounter(req, res, next) {
+  requestsServed += 1;
+  next();
+}
+
+app.use(requestLogger);
+app.use(requestCounter);
+
+app.get('/old-page', (req, res) => {
+  res.redirect(301, '/hello');
+});
+
+
+// ----------------------------------------------------------------------------
 // Text routes
 // ----------------------------------------------------------------------------
 app.get('/hello', (req, res) => {
@@ -41,9 +66,8 @@ const COURSES = Object.freeze([
   Object.freeze({ id: 4, title: 'Computer Networks', credits: 4 }),
 ]);
 
-app.get('/old-page', (req, res) => {
-  res.redirect(301, '/hello');
-});
+let requestsServed = 0;
+
 
 // ----------------------------------------------------------------------------
 // API routes (JSON)
@@ -73,6 +97,11 @@ app.post('/api/subscribe', (req, res) => {
 
 app.get('/api/admin', (req, res) => {
   res.status(403).json({ error: 'Forbidden' });
+});
+
+
+app.get('/api/stats', (req, res) => {
+  res.json({ requestsServed });
 });
 
 // ----------------------------------------------------------------------------
